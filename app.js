@@ -2,6 +2,8 @@
 
 const express = require("express");
 const ejs = require("ejs");
+const _ = require("lodash");
+
 
 let posts = [];
 exports.posts = posts;
@@ -44,10 +46,14 @@ app.get("/compose", (req, res) => {
 });
 
 app.get("/posts/:input", (req, res) => {
-  let requested = req.params.input;
-  posts.forEach((e) => {
-    if (e.title === requested) {
-      console.log("Match Found");
+  let requested = _.kebabCase(req.params.input);
+  posts.forEach((post) => {
+    const storedTitle = _.kebabCase(post.title);
+    if (storedTitle === requested) {
+      res.render("post", {
+        newTitle: post.title,
+        newBody: post.body
+      });
     }
   });
 });
