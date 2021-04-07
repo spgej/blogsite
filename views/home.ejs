@@ -4,13 +4,10 @@
 <p> <%= homeStart %> </p>
 
 <% blogPost.forEach((e) => { %>
+<%  let trunc = (e.body).substring(0, 100) + "..."; %>
 <div class="">
-  <div class="">
-    <h1><%= (e).title %></h1>
-  </div>
-  <div class="">
-    <p><%= (e).body %></p>
-  </div>
+  <h1><%= (e).title %></h1>
+  <p><%= trunc %><a href="/posts/<%=(e).title%>">Read More</a></p>
 </div>
 <%});%>
 
